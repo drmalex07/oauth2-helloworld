@@ -1,0 +1,41 @@
+[general]
+request_classifier = repoze.who.classifiers:default_request_classifier
+challenge_decider = repoze.who.classifiers:default_challenge_decider
+remote_user_key = REMOTE_USER
+ 
+[authenticators]
+plugins = 
+    htpasswd
+ 
+[identifiers]
+plugins = 
+    friendlyform;browser
+    auth_tkt
+ 
+[challengers]
+plugins = 
+    friendlyform;browser
+
+[plugin:htpasswd]
+use = repoze.who.plugins.htpasswd:make_plugin
+filename = %(here)s/htpasswd
+check_fn = repoze.who.plugins.htpasswd:crypt_check
+
+[plugin:auth_tkt]
+use = repoze.who.plugins.auth_tkt:make_plugin
+secret = s3cret
+cookie_name = auth_tkt
+secure = False
+timeout = 3600
+reissue_time = 1800
+
+[plugin:friendlyform]
+use = repoze.who.plugins.friendlyform:FriendlyFormPlugin
+login_form_url= /login
+login_handler_path = /handle_login
+post_login_url = /logged-in
+logout_handler_path = /handle_logout
+post_logout_url = /logged-out
+login_counter_name = n
+rememberer_name = auth_tkt
+charset = utf8

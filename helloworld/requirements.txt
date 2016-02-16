@@ -1,0 +1,11 @@
+jinja2
+flask
+beaker
+paste
+pastedeploy
+pastescript
+sqlalchemy
+repoze.who<1.1
+repoze.who-friendlyform
+-e git+git@github.com:drmalex07/repoze-plugins.git@master#egg=repoze_plugins-master
+

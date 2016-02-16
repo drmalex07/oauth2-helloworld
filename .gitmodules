@@ -1,0 +1,3 @@
+[submodule "repoze-plugins"]
+	path = repoze-plugins
+	url = git@github.com:drmalex07/repoze-plugins.git
