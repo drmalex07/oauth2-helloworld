@@ -26,6 +26,9 @@ def make_app(global_config, **app_config):
 
     @app.route('/')
     def index():
+        session = request.environ['beaker.session']
+        session['foo'] = 'Bar'
+        session.save()
         return render_template('index.html')
       
     @app.route('/user')
@@ -66,17 +69,6 @@ def make_app(global_config, **app_config):
         '''A hook invoked after a successfull logout (i.e. "forget" action)
         '''
         return render_template('bye.html')
-
-    # Setup middleware
-
-    from repoze.who.config import make_middleware_with_config
-    who_config_file = app_config['who.config']
-    who_log_file = app_config.get('who.log', 'stdout')
-    app.wsgi_app = make_middleware_with_config(app.wsgi_app,
-        global_config, who_config_file, log_file=who_log_file)
-
-    from beaker.middleware import SessionMiddleware
-    app.wsgi_app = SessionMiddleware(app.wsgi_app, app_config)
     
     # Done
     return app

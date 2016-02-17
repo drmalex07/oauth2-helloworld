@@ -1,0 +1,87 @@
+[DEFAULT]
+
+debug = on
+
+data_dir = %(here)s/data/accounts
+
+[server:main]
+
+use = native
+
+[server:native]
+
+use = egg:helloworld#native
+debug = on
+host = accounts.helloworld.internal
+port = 5000
+
+[pipeline:main]
+
+pipeline =
+    static
+    session
+    who 
+    main-app
+
+[filter:static]
+
+use = egg:helloworld#static
+document_root = %(here)s/public
+cache_max_age = 1800
+
+[filter:session]
+
+use = egg:helloworld#session
+
+session.type = file
+session.data_dir = %(data_dir)s/session/
+session.key = accounts
+session.secret = dJkUgAajzrRiD8hrNbdcnQ==
+session.timeout = 3600
+cache.type = file
+cache.data_dir = %(data_dir)s/cache/
+cache.lock_dir = %(data_dir)s/cache/locks
+
+[filter:who]
+
+use = egg:helloworld#who
+
+config_file = %(here)s/who-accounts.ini
+log_file = %(data_dir)s/who.log
+
+[app:main-app]
+
+use = egg:helloworld#accounts
+
+title = Manage accounts for helloworld domain
+url = http://accounts.helloworld.internal:5000
+
+database.url = sqlite:///%(here)s/data/accounts.db
+
+scope_prefix = %(url)s/auth
+scopes =
+    read-email
+    read-fullname
+
+[loggers]
+keys = root
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = DEBUG
+formatter = generic
+
+[formatter_generic]
+format = %(levelname)-7.7s [%(name)s] [%(threadName)s] %(message)s
+datefmt = %H:%M:%S

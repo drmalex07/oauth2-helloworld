@@ -19,8 +19,13 @@ setup(
             'accounts=helloworld.accounts.app:make_app',
             'blog=helloworld.blog.app:make_app',
         ],
+        'paste.filter_factory': [
+            'session=helloworld.filters:make_session_filter',
+            'who=helloworld.filters:make_who_filter',
+            'static=helloworld.filters:make_static_filter',
+        ],
         'paste.server_factory': [
-            'native=helloworld.server:make_server',
+            'native=helloworld.servers:make_server',
         ],
         'paste.paster_command': [
              'init-db=helloworld.commands:InitDatabase',

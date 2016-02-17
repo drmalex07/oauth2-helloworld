@@ -1,0 +1,88 @@
+[DEFAULT]
+
+debug = on
+
+data_dir = %(here)s/data/blog
+
+[server:main]
+
+use = native
+
+[server:native]
+
+use = egg:helloworld#native
+debug = on
+host = blog.helloworld.internal
+port = 5000
+
+[pipeline:main]
+
+pipeline =
+    static
+    session
+    who 
+    main-app
+
+[filter:static]
+
+use = egg:helloworld#static
+document_root = %(here)s/public
+cache_max_age = 1800
+
+[filter:session]
+
+use = egg:helloworld#session
+
+session.type = file
+session.data_dir = %(data_dir)s/session/
+session.key = blog
+session.secret = dJkUgAajzrRiD8hrNbdcnQ==
+session.timeout = 3600
+cache.type = file
+cache.data_dir = %(data_dir)s/cache/
+cache.lock_dir = %(data_dir)s/cache/locks
+
+[filter:who]
+
+use = egg:helloworld#who
+
+config_file = %(here)s/who-blog.ini
+log_file = %(data_dir)s/who.log
+
+[app:main-app]
+
+use = egg:helloworld#blog
+
+title = A blogging application in helloworld domain
+url = http://blog.helloworld.internal:5000
+
+database.url = sqlite:///%(here)s/data/blog.db
+
+scope_prefix = %(url)s/auth
+scopes =
+    read-post
+    edit-post
+    delete-post
+
+[loggers]
+keys = root
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = DEBUG
+formatter = generic
+
+[formatter_generic]
+format = %(levelname)-7.7s [%(name)s] [%(threadName)s] %(message)s
+datefmt = %H:%M:%S
