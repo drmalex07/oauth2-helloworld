@@ -1,9 +1,10 @@
-{% extends "base.html" %}
+{% extends "page.html" %}
 
 {% block head %}
+    {{ super() }}
     <title>Greetings</title>
 {% endblock %}
 
-{% block body %}
+{% block page_body %}
     <h2>Hello, {{name}}</h2>
 {% endblock %}

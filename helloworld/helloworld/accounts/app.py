@@ -29,7 +29,9 @@ def make_app(global_config, **app_config):
         session = request.environ['beaker.session']
         session['foo'] = 'Bar'
         session.save()
-        return render_template('index.html')
+        identity = request.environ.get('repoze.who.identity')
+        userobj = identity['user'] if identity else None
+        return render_template('index.html', user=userobj)
       
     @app.route('/user')
     @app.route('/user/welcome')
@@ -70,6 +72,5 @@ def make_app(global_config, **app_config):
         '''
         return render_template('bye.html')
     
-    # Done
     return app
 

@@ -1,7 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'page.html' %}
 
-{% block body %}
-    <h2>Welcome to <em>helloworld</em></h2>
+{% block page_body %}
+    <h2>Welcome to <strong>helloworld</strong></h2>
 
-    <p><a href="{{url_for('login')}}">Login</a></p>
+    <p>
+      {% if not user %}
+      You are a visitor. <a href="{{url_for('login')}}">Sign in</a>
+      {% else %}
+      You have signed in as <em>{{user.email}}</em>. <a href="{{url_for('logout')}}">Sign out</a>
+      {% endif %} {# user #}
+    </p>
 {% endblock %}

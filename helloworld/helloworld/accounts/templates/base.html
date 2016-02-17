@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {% block head %}{% endblock %}
+    {% block head %}
+    
+    {% block head_scripts %}
+    <script src="//code.jquery.com/jquery-1.12.0.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    {% endblock %}
+    
+    {% block head_styles %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    {% endblock %}
+    
+    {% endblock %} {# head #}
   </head>
+
   <body>
     {% block body %}{% endblock %}
   </body>
