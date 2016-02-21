@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block body %}
+
+{% include 'navbar.html' %}
+
 <div class="container-fluid">
-   {% block page_body %}{% endblock %}
+  {% block page_body %}{% endblock %}
 </div>
-{% endblock %}
+
+{% endblock %} {# body #}

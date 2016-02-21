@@ -1,0 +1,33 @@
+{% block navbar %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header"><a class="navbar-brand" href="/">HelloWorld</a></div>
+    {% block navbar_body %}
+    
+    {% block navbar_body_left %}
+    <ul class="nav navbar-nav">
+      <li class="{% if request.endpoint == 'user.show_account_info' %}active{% endif %}">
+        <a href="{{url_for('user.show_account_info')}}">Account</a>
+      </li>
+      <li class="{% if request.endpoint == 'user.show_dashboard' %}active{% endif %}">
+        <a href="{{url_for('user.show_dashboard')}}">Dashboard</a>
+      </li>
+    </ul>
+    {% endblock %} {# navbar_body_left #}
+    
+    {% block navbar_body_right %}
+    <ul class="nav navbar-nav navbar-right">
+      {% if user %}
+      <li><p class="navbar-text">Signed in as <a href="{{url_for('user.show_dashboard')}}" class="link">{{user.email}}</a></p></li>
+      <li><a href="{{url_for('who.logout')}}" class="link">Sign out</a></li>
+      {% else %}
+      <li><a href="#1" class="link">Sign up</a></li>
+      <li><a href="{{url_for('user.show_dashboard')}}" class="link">Sign in</a></li>
+      {% endif %}
+    </ul> 
+    {% endblock %} {# navbar_body_right #}
+    
+    {% endblock %} {# navbar_body #} 
+  </div>
+</nav>
+{% endblock %} {# navbar #}

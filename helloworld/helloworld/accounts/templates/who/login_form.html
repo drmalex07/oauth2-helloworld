@@ -1,0 +1,30 @@
+{% extends 'page.html' %}
+
+{% block page_body %}
+   <form method="POST" action="{{login_handler}}" class="form-horizontal">
+     <h3>Sign in <strong>helloworld</strong></h3>
+      
+     {% if login_counter > 0 %}
+     <p class="mute">You have {{login_counter}} login attempts</p>  
+     {% endif %}  
+
+     <div class="form-group">
+       <label for="login" class="col-sm-1 control-label">E-mail:</label>
+       <div class="col-sm-3">
+         <input type="email" class="form-control" id="input-login" name="login"/>
+       </div>
+     </div>
+     <div class="form-group">
+       <label for="password" class="col-sm-1 control-label">Password:</label>
+       <div class="col-sm-3">
+         <input type="password" class="form-control" id="input-password" name="password"/>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <div class="col-sm-offset-1 col-sm-2">
+         <button type="submit" class="btn btn-primary">Sign in</button>
+       </div>
+     </div>    
+  </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'user/page.html' %}
+
+{% block page_body %}
+    <h3>Account Information</h3>
+    
+    <div class="row">
+      <p class="col-md-6">You can edit <a href="{{url_for('user.edit_account')}}">here</a></p>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-bordered table-striped">
+          <tbody>
+          <tr>      
+            <th class="title">Email:</th>
+            <td class="value"><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+          </tr><tr>
+            <th class="title">Full Name:</th>
+            <td class="value">{{user.fullname}}</td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+{% endblock %}
+

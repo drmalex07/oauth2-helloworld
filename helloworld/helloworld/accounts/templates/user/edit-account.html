@@ -1,0 +1,29 @@
+{% extends 'user/page.html' %}
+
+{% block page_body %}
+    <h3>Edit Account</h3>
+    
+    <form method="POST" class="form-horizontal">
+      <div class="form-group">
+         <label for="email" class="col-sm-1 control-label">E-mail:</label>
+         <div class="col-sm-3">
+           <input type="email" class="form-control" id="input-email" name="email" readonly value="{{user.email}}"/>
+         </div>
+      </div>
+      
+      <div class="form-group">
+         <label for="fullname" class="col-sm-1 control-label">Name:</label>
+         <div class="col-sm-4">
+           <input type="text" class="form-control" id="input-fullname" name="fullname" value="{{user.fullname}}" placeholder="Totos"/>
+         </div>
+      </div>
+    
+      <div class="form-group">
+       <div class="col-sm-offset-1 col-sm-2">
+         <button type="submit" name="save" class="btn btn-primary">Save</button>
+       </div>
+     </div>    
+
+    </form>
+{% endblock %}
+

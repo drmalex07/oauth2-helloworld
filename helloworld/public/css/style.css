@@ -1,3 +1,11 @@
 /**
  * Your site-local styles
  */
+
+ .form-control, .btn {
+    border-radius: 1px
+ }
+
+ dd {
+    margin-left: 1em;
+ }
